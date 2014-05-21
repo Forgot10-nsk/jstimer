@@ -9,5 +9,7 @@
 	<body class="back_dark">
 		<div>test</div>
 		<button id="btStart">Start</button>
+		<button id="btStop">Stop</button>
+
 	</body>
 </html>
