@@ -24,18 +24,27 @@
                     <input type="radio" name="timerMode" value ="3">Режим 4<br/>             
                  */
                 $modes = array(
-                    array(1,45000,"Длинный",15000,"Короткий"),
+/*                    array(1,45000,"Длинный",15000,"Короткий"),
                     array(0,45*1000*60,"Работа",15*1000*60,"Отдых"),
                     array(0,40*1000*60,"Работа",20*1000*60,"Отдых"),
-                    array(0,30*1000*60,"Работа",30*1000*60,"Отдых"),
+                    array(0,30*1000*60,"Работа",30*1000*60,"Отдых"),*/
+                    array(45000,    15000,      "Длинный","Короткий",1),
+                    array(45*1000*60,15*1000*60,"Работа","Отдых",0),
+                    array(40*1000*60,20*1000*60,"Работа","Отдых",0),
+                    array(30*1000*60,30*1000*60,"Работа","Отдых",0)                    
                     );
+
+                //$arr = array('test'=>'123','key'=>'value');
+                $js_obj = json_encode($modes);
+                print "<script language='javascript'>var modes=$js_obj;/* alert(modes[0]);*/</script>";
+
                 $i = 0;
-                for ($i = 0; $i < 4; $i++)
+                for ($i = 0; $i < count($modes); $i++)
                 {
                     echo '<input type="radio" name="timerMode" value ="'.$i.'"';
-                    if($modes[$i][0]===1)
+                    if($modes[$i][4]===1)
                         echo "checked";
-                    echo '>'.($modes[$i][1]/1000.0).' сек / '.($modes[$i][3]/1000.0).' сек<br/>';
+                    echo '>'.($modes[$i][0]/1000.0).' сек / '.($modes[$i][1]/1000.0).' сек<br/>';
                 }
                 ?>
 	</body>
