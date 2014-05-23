@@ -7,9 +7,10 @@
 		<title>Таймер 45/15</title>
 	</head>
 	<body class="back_dark">
-		<div>test</div>
+		<div id="lbInterval">Текущий интервал:</div>
 		<button id="btStart">Start</button>
 		<button id="btStop">Stop</button>
-
+		<button id="btTest">Test</button>
+		<div id="lbTest">Тест</div>
 	</body>
 </html>
