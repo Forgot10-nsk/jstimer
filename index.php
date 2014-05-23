@@ -8,12 +8,11 @@
 		<title>Таймер 45/15</title>
 	</head>
 	<body class="back_dark">
-		<div id="lbSecondsL">Прошло: </div>
+		<div id="lbSecondsL">Прошло:&nbsp;</div>
 		<div id="lbSeconds">0</div>
-		<div id="lbInterval">Текущий интервал:</div><br/>
-		<!--<div class="progressBar"><div style="width:70px;" class="progress red"></div></div><br/>
-		<div class="progressBar"><div style="width:45%;" class="progress green"></div></div><br/>-->
-		<div id="pbInterval" class="progressBar"><div style="width:45%;" class="progress red"></div></div><br/>
+		<div id="lbIntervalL">Текущий интервал:&nbsp;</div>
+		<div id="lbInterval"></div><br/>
+		<div id="pbInterval" class="progressBar"><div style="width:0%;" class="progress"></div></div><br/>
 		<button id="btStart">Start</button>
 		<button id="btStop" disabled>Stop</button>
 		<button id="btPause" disabled>Pause</button>
@@ -22,12 +21,12 @@
 		<br/>
                 <?php
                 $modes = array(
-                    array(15,    5,      "Длинный","Короткий",1),
-                    array(45,    15,      "Длинный","Короткий",0),
+                    array(15,5,"Длинный","Короткий",1),
+                    array(45,15,"Длинный","Короткий",0),
                     array(45*60,15*60,"Работа","Отдых",0),
                     array(40*60,20*60,"Работа","Отдых",0),
                     array(30*60,30*60,"Работа","Отдых",0)                    
-                    );
+                );
                 $js_obj = json_encode($modes);
                 print "<script language='javascript'>var modes=$js_obj;/* alert(modes[0]);*/</script>";
                 $i = 0;

@@ -22,14 +22,17 @@ var timerINT = function()
                 $('#pbInterval .progress').addClass('green'); 
                 //alert('d=1');
         }
-        alert(modes[mode][d+2]);
-        
+        $('#pbInterval .progress').width('0%');
+        $('#lbInterval').text(modes[mode][d+2]);
         TCR = modes[mode][d]-1;
+        alert(modes[mode][d+2]);
     }
     else
     {
         TCR--;
     }
+    //calculate progress
+    $('#pbInterval .progress').width((100-Math.floor(TCR*100.0/(modes[mode][d]-1)))+'%');
     $('#lbSeconds').text(++seconds);
 };
 
@@ -55,6 +58,7 @@ $(document).ready(function()
             TCR = 0;
             d = 1;
             seconds = 0;            
+            $('#pbInterval .progress').width('0%');
             $('#lbSeconds').text(0);
            
             $('#btStart').attr('disabled', false);
@@ -68,6 +72,7 @@ $(document).ready(function()
             //$('#pbInterval .progress').addClass('green'); 
             $('#pbInterval .progress').toggleClass('red'); 
             $('#pbInterval .progress').toggleClass('green'); 
+            $('#pbInterval .progress').width(50+'%');//setAttr('width',50+'%');
 
 	});
 	$('input[name=\"timerMode\"]').on('click', function()

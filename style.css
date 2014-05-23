@@ -7,7 +7,6 @@
 
 .progress
 {
-    //clear:left;
 }
 
 .green
@@ -22,7 +21,7 @@
     height:100%;
 }
 
-#lbSecondsL
+#lbSecondsL, #lbIntervalL
 {
     float:left;
 }
