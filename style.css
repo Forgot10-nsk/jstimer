@@ -1,8 +1,11 @@
 .progressBar
 {
-    background-color: rgb(216, 216, 216);
+    background-color:rgb(216,216,216);
+    border: 1px solid rgb(127,127,127);
+    border-radius:5px;
     width:155px;
     height:24px;
+    margin:10px;
 }
 
 .progress
@@ -21,7 +24,16 @@
     height:100%;
 }
 
-#lbSecondsL, #lbIntervalL
+#lbSecondsL, #lbIntervalL, .container
 {
     float:left;
+}
+
+.container
+{
+    background-color:rgb(216,216,216);
+    border: 1px solid rgb(127,127,127);
+    border-radius:5px;
+    padding:10px;
+    //width:200px;
 }

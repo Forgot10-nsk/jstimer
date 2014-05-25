@@ -8,17 +8,21 @@
 		<title>Таймер 45/15</title>
 	</head>
 	<body class="back_dark">
+            <div class="container" width="250px">
 		<div id="lbSecondsL">Прошло:&nbsp;</div>
 		<div id="lbSeconds">0</div>
 		<div id="lbIntervalL">Текущий интервал:&nbsp;</div>
 		<div id="lbInterval"></div><br/>
-		<div id="pbInterval" class="progressBar"><div style="width:0%;" class="progress"></div></div><br/>
+		<div id="pbInterval" class="progressBar"><div style="width:0%;" class="progress"></div></div>
 		<button id="btStart">Start</button>
 		<button id="btStop" disabled>Stop</button>
 		<button id="btPause" disabled>Pause</button>
-		<button id="btTest">Test</button>
-		<div id="lbTest">Тест</div>
 		<br/>
+                <div class="container">
+                    Начать с интервала:<br/>
+                    <input type="radio" name="beginFrom" value ="0" checked>Первый<br/>
+                    <input type="radio" name="beginFrom" value ="1">Второй<br/>
+                </div><br/>
                 <?php
                 $modes = array(
                     array(15,5,"Длинный","Короткий",1),
@@ -35,8 +39,23 @@
                     echo '<input type="radio" name="timerMode" value ="'.$i.'"';
                     if($modes[$i][4]===1)
                         echo "checked";
-                    echo '>'.($modes[$i][0]).' сек / '.($modes[$i][1]).' сек<br/>';
+                    $time1 = $modes[$i][0];
+                    $time2 = $modes[$i][1];
+                    $int1 = 'сек';
+                    $int2 = 'сек';
+                    if($time1 >= 60)
+                    {
+                        $time1 /= 60.0;
+                        $int1 = 'мин';                        
+                    }
+                    if($time2 >= 60)
+                    {
+                        $time2 /= 60.0;
+                        $int2 = 'мин';                        
+                    }
+                    echo '>'.$time1.' '.$int1.' / '.$time2.' '.$int2.'<br/>';
                 }
                 ?>
+            </div>
 	</body>
 </html>

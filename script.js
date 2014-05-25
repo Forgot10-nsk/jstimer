@@ -65,18 +65,12 @@ $(document).ready(function()
             $('#btStop').attr('disabled', true);
             $('#btPause').attr('disabled', true);
 	});
-	$('#btTest').on('click', function()
-	{	
-            //$('#lbTest').text(modes[mode][d]/60.0);
-            //$('#pbInterval .progress').removeClass('red'); 
-            //$('#pbInterval .progress').addClass('green'); 
-            $('#pbInterval .progress').toggleClass('red'); 
-            $('#pbInterval .progress').toggleClass('green'); 
-            $('#pbInterval .progress').width(50+'%');//setAttr('width',50+'%');
-
-	});
 	$('input[name=\"timerMode\"]').on('click', function()
 	{	
             mode = $("input[name=\"timerMode\"]:checked").val();
+	});      
+	$('input[name=\"beginFrom\"]').on('click', function()
+	{	
+            d = $("input[name=\"beginFrom\"]:checked").val();
 	});      
 });
