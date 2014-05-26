@@ -13,14 +13,15 @@
                 csv:
                     silent
                     beginFrom
-                    checkedMode
+                    timerMode
                     mode0
                     mode1
                     ...
                 */
                 $silent = 1;
                 $beginFrom = 0;
-                $checkedMode = 0;
+                $timerMode = 0;
+                $modes = array();
                 if (($handle = fopen("config.csv", "r")) !== FALSE) 
                 {
                     if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
@@ -32,26 +33,23 @@
                         $beginFrom = $data[0];
                     }
                     if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
-                    {//checkedMode
-                        $checkedMode = $data[0];
+                    {//$timerMode
+                        $timerMode = $data[0];
                     }
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
+                    while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
                     {
                         eval("\$data[0] =$data[0];");
                         eval("\$data[1] =$data[1];");
                         $modes[] = $data;
                     }
+                    fclose($handle);
                 }
-                  
-                /*$modes = array(
-                    array(15,5,"Длинный","Короткий",1),
-                    array(45,15,"Длинный","Короткий",0),
-                    array(45*60,15*60,"Работа","Отдых",0),
-                    array(40*60,20*60,"Работа","Отдых",0),
-                    array(30*60,30*60,"Работа","Отдых",0)                    
-                );*/
+                else 
+                {
+                    echo "Файл настроек не найден\n";
+                }
                 $js_obj = json_encode($modes);
-                print "<script language='javascript'>var modes=$js_obj;/* alert(modes[0]);*/</script>";
+                print "<script language='javascript'>var modes=$js_obj; /*alert(modes[0]);*/</script>";
             ?>
             <div class="container" width="250px">
 		<div id="lbSecondsL">Прошло:&nbsp;</div>
@@ -74,7 +72,7 @@
                 for ($i = 0; $i < count($modes); $i++)
                 {
                     echo '<input type="radio" name="timerMode" value ="'.$i.'"';
-                    if($i==$checkedMode)
+                    if($i==$timerMode)
                         echo "checked";
                     $time1 = $modes[$i][0];
                     $time2 = $modes[$i][1];
@@ -93,6 +91,7 @@
                     echo '>'.$time1.' '.$int1.' / '.$time2.' '.$int2.'<br/>';
                 }
                 ?>
+		<button id="btSave">Сохранить настройки</button>
             </div>
 	</body>
 </html>

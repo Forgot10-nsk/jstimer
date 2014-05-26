@@ -13,14 +13,12 @@ var timerINT = function()
                 d = 0;
                 $('#pbInterval .progress').removeClass('green'); 
                 $('#pbInterval .progress').addClass('red'); 
-                //alert('d=0');
         }
         else
         {
                 d = 1;
                 $('#pbInterval .progress').removeClass('red');
                 $('#pbInterval .progress').addClass('green'); 
-                //alert('d=1');
         }
         $('#pbInterval .progress').width('0%');
         $('#lbInterval').text(modes[mode][d+2]);
@@ -74,4 +72,38 @@ $(document).ready(function()
 	{	
             d = $("input[name=\"beginFrom\"]:checked").val();
 	});      
+	$('#btSave').on('click', function()
+	{
+            /*
+            csv:
+                silent
+                beginFrom
+                timerMode
+                mode0
+                mode1
+                ...
+            */           
+            var fCSV = "";
+            fCSV += Number($("#cbSilent").is(":checked"));
+            fCSV += "\n";
+            fCSV += $("input[name=\"beginFrom\"]:checked").val();
+            fCSV += "\n";
+            fCSV += $("input[name=\"timerMode\"]:checked").val();
+            fCSV += "\n";
+            for (var i = 0; i < modes.length; i++) 
+            {
+                for(var j = 0; j < modes[i].length-1; j++)
+                {
+                    fCSV +=modes[i][j];
+                    fCSV += ",";                    
+                }
+                fCSV +=modes[i][j];
+                fCSV += "\n";                    
+            }        
+            var message = fCSV;
+            $.get('save.php', {message:message}, function(data)	{
+                    //alert('Сервер ответил: '+data);
+            });
+            //alert(fCSV);
+        });
 });
