@@ -6,10 +6,21 @@
     width:155px;
     height:24px;
     margin:10px;
+    position:relative;
 }
 
 .progress
 {
+    position:absolute;
+}
+
+.progressLabel
+{
+    position:absolute;
+    width:100%;
+    height:100%;
+    vertical-align:middle;
+    text-align:center;
 }
 
 .green
@@ -24,7 +35,7 @@
     height:100%;
 }
 
-#lbSecondsL, #lbIntervalL, .container
+#lbSecondsL, #lbIntervalL, .container, #lbInterval
 {
     float:left;
 }

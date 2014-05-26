@@ -49,14 +49,18 @@
                     echo "Файл настроек не найден\n";
                 }
                 $js_obj = json_encode($modes);
-                print "<script language='javascript'>var modes=$js_obj; /*alert(modes[0]);*/</script>";
+                print "<script language='javascript'>var modes=$js_obj; var d = !$beginFrom; var mode = $timerMode;</script>";
+                
             ?>
             <div class="container" width="250px">
 		<div id="lbSecondsL">Прошло:&nbsp;</div>
 		<div id="lbSeconds">0</div>
-		<div id="lbIntervalL">Текущий интервал:&nbsp;</div>
-		<div id="lbInterval"></div><br/>
-		<div id="pbInterval" class="progressBar"><div style="width:0%;" class="progress"></div></div>
+		<div id="lbIntervalL">Интервал:&nbsp;</div>
+		<div id="lbInterval"> </div><br/>
+		<div id="pbInterval" class="progressBar">
+                    <div style="width:0%;" class="progress"></div>
+                    <div class="progressLabel"></div>
+                </div>
 		<button id="btStart">Start</button>
 		<button id="btStop" disabled>Stop</button>
 		<button id="btPause" disabled>Pause</button>

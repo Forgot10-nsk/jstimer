@@ -1,8 +1,9 @@
 var timer = 0;
-var mode = 0;
-var d = 1;
+//var mode = 0;
+//var d = 1;
 var TCR = 0;
 var seconds = 0;
+var pr = 0;
 
 var timerINT = function()
 {
@@ -10,28 +11,34 @@ var timerINT = function()
     {
         if(d === 1)
         {
-                d = 0;
-                $('#pbInterval .progress').removeClass('green'); 
-                $('#pbInterval .progress').addClass('red'); 
+            d = 0;
+            $('#pbInterval .progress').removeClass('green'); 
+            $('#pbInterval .progress').addClass('red'); 
         }
         else
         {
-                d = 1;
-                $('#pbInterval .progress').removeClass('red');
-                $('#pbInterval .progress').addClass('green'); 
+            d = 1;
+            $('#pbInterval .progress').removeClass('red');
+            $('#pbInterval .progress').addClass('green'); 
         }
         $('#pbInterval .progress').width('0%');
         $('#lbInterval').text(modes[mode][d+2]);
         TCR = modes[mode][d]-1;
         if($("#cbSilent").is(":not(:checked)"))
             alert(modes[mode][d+2]);
+        
+        
+        //modes[mode][d+2]
     }
     else
     {
         TCR--;
     }
     //calculate progress
-    $('#pbInterval .progress').width((100-Math.floor(TCR*100.0/(modes[mode][d]-1)))+'%');
+    pr = (100-Math.floor(TCR*100.0/(modes[mode][d]-1)))+'%';
+    $('.progressLabel').text(pr);
+    $('#pbInterval .progress').width(pr);
+    
     $('#lbSeconds').text(++seconds);
 };
 
@@ -58,6 +65,7 @@ $(document).ready(function()
             d = 1;
             seconds = 0;            
             $('#pbInterval .progress').width('0%');
+            $('.progressLabel').text("0%");
             $('#lbSeconds').text(0);
            
             $('#btStart').attr('disabled', false);
