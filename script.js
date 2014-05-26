@@ -25,7 +25,8 @@ var timerINT = function()
         $('#pbInterval .progress').width('0%');
         $('#lbInterval').text(modes[mode][d+2]);
         TCR = modes[mode][d]-1;
-        alert(modes[mode][d+2]);
+        if($("#cbSilent").is(":not(:checked)"))
+            alert(modes[mode][d+2]);
     }
     else
     {

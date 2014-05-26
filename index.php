@@ -17,7 +17,8 @@
 		<button id="btStart">Start</button>
 		<button id="btStop" disabled>Stop</button>
 		<button id="btPause" disabled>Pause</button>
-		<br/>
+		<br/>               
+                <input type="checkbox" name="silent" id="cbSilent"><label for="cbSilent">Silent</label><br/>
                 <div class="container">
                     Начать с интервала:<br/>
                     <input type="radio" name="beginFrom" value ="0" checked>Первый<br/>
