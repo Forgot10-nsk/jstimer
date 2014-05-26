@@ -8,6 +8,51 @@
 		<title>Таймер 45/15</title>
 	</head>
 	<body class="back_dark">
+            <?php
+                /*
+                csv:
+                    silent
+                    beginFrom
+                    checkedMode
+                    mode0
+                    mode1
+                    ...
+                */
+                $silent = 1;
+                $beginFrom = 0;
+                $checkedMode = 0;
+                if (($handle = fopen("config.csv", "r")) !== FALSE) 
+                {
+                    if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
+                    {//silent
+                        $silent = $data[0];
+                    }
+                    if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
+                    {//beginFrom
+                        $beginFrom = $data[0];
+                    }
+                    if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
+                    {//checkedMode
+                        $checkedMode = $data[0];
+                    }
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
+                    {
+                        eval("\$data[0] =$data[0];");
+                        eval("\$data[1] =$data[1];");
+                        $modes[] = $data;
+                    }
+                }
+                  
+                /*$modes = array(
+                    array(15,5,"Длинный","Короткий",1),
+                    array(45,15,"Длинный","Короткий",0),
+                    array(45*60,15*60,"Работа","Отдых",0),
+                    array(40*60,20*60,"Работа","Отдых",0),
+                    array(30*60,30*60,"Работа","Отдых",0)                    
+                );*/
+                $js_obj = json_encode($modes);
+                print "<script language='javascript'>var modes=$js_obj;/* alert(modes[0]);*/</script>";
+            ?>
             <div class="container" width="250px">
 		<div id="lbSecondsL">Прошло:&nbsp;</div>
 		<div id="lbSeconds">0</div>
@@ -18,27 +63,18 @@
 		<button id="btStop" disabled>Stop</button>
 		<button id="btPause" disabled>Pause</button>
 		<br/>               
-                <input type="checkbox" name="silent" id="cbSilent"><label for="cbSilent">Silent</label><br/>
+                <input type="checkbox" name="silent" id="cbSilent" <?php if($silent) echo "checked";?>><label for="cbSilent">Silent</label><br/>
                 <div class="container">
                     Начать с интервала:<br/>
-                    <input type="radio" name="beginFrom" value ="0" checked>Первый<br/>
-                    <input type="radio" name="beginFrom" value ="1">Второй<br/>
+                    <input type="radio" name="beginFrom" value ="0" <?php if(!$beginFrom) echo "checked";?>>Первый<br/>
+                    <input type="radio" name="beginFrom" value ="1" <?php if($beginFrom) echo "checked";?>>Второй<br/>
                 </div><br/>
                 <?php
-                $modes = array(
-                    array(15,5,"Длинный","Короткий",1),
-                    array(45,15,"Длинный","Короткий",0),
-                    array(45*60,15*60,"Работа","Отдых",0),
-                    array(40*60,20*60,"Работа","Отдых",0),
-                    array(30*60,30*60,"Работа","Отдых",0)                    
-                );
-                $js_obj = json_encode($modes);
-                print "<script language='javascript'>var modes=$js_obj;/* alert(modes[0]);*/</script>";
                 $i = 0;
                 for ($i = 0; $i < count($modes); $i++)
                 {
                     echo '<input type="radio" name="timerMode" value ="'.$i.'"';
-                    if($modes[$i][4]===1)
+                    if($i==$checkedMode)
                         echo "checked";
                     $time1 = $modes[$i][0];
                     $time2 = $modes[$i][1];
