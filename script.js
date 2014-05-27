@@ -2,6 +2,7 @@ var timer = 0;
 //var mode = 0;
 //var d = 1;
 var TCR = 0;
+var ticks = 0;
 var seconds = 0;
 var pr = 0;
 
@@ -23,7 +24,7 @@ var timerINT = function()
         }
         $('#pbInterval .progress').width('0%');
         $('#lbInterval').text(modes[mode][d+2]);
-        TCR = modes[mode][d]-1;
+        TCR = modes[mode][d]*timerFreq-1;
         if($("#cbSilent").is(":not(:checked)"))
             alert(modes[mode][d+2]);
         
@@ -35,11 +36,13 @@ var timerINT = function()
         TCR--;
     }
     //calculate progress
-    pr = (100-Math.floor(TCR*100.0/(modes[mode][d]-1)))+'%';
+    pr = (100-Math.floor(TCR*100.0/(modes[mode][d]*timerFreq-1)))+'%';
     $('.progressLabel').text(pr);
     $('#pbInterval .progress').width(pr);
     
-    $('#lbSeconds').text(++seconds);
+    ticks++;
+    if(ticks % 4 == 0)
+        $('#lbSeconds').text(++seconds);
 };
 
 $(document).ready(function() 
@@ -49,7 +52,7 @@ $(document).ready(function()
             $('#btStart').attr('disabled', true);
             $('#btStop').attr('disabled', false);
             $('#btPause').attr('disabled', false);
-            timer = setInterval(timerINT, 1000);
+            timer = setInterval(timerINT, 1000/timerFreq);
 	});
 	$('#btPause').on('click', function()
 	{	
@@ -97,6 +100,8 @@ $(document).ready(function()
             fCSV += $("input[name=\"beginFrom\"]:checked").val();
             fCSV += "\n";
             fCSV += $("input[name=\"timerMode\"]:checked").val();
+            fCSV += "\n";
+            fCSV += timerFreq;
             fCSV += "\n";
             for (var i = 0; i < modes.length; i++) 
             {

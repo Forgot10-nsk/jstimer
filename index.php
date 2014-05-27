@@ -21,6 +21,7 @@
                 $silent = 1;
                 $beginFrom = 0;
                 $timerMode = 0;
+                $timerFreq = 1;
                 $modes = array();
                 if (($handle = fopen("config.csv", "r")) !== FALSE) 
                 {
@@ -36,6 +37,10 @@
                     {//$timerMode
                         $timerMode = $data[0];
                     }
+                    if(($data = fgetcsv($handle, 5, ",")) !== FALSE) 
+                    {//$timerMode
+                        $timerFreq = $data[0];
+                    }
                     while(($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
                     {
                         eval("\$data[0] =$data[0];");
@@ -49,7 +54,7 @@
                     echo "Файл настроек не найден\n";
                 }
                 $js_obj = json_encode($modes);
-                print "<script language='javascript'>var modes=$js_obj; var d = !$beginFrom; var mode = $timerMode;</script>";
+                print "<script language='javascript'>var modes=$js_obj; var d = !$beginFrom; var mode = $timerMode; var timerFreq = $timerFreq;</script>";
                 
             ?>
             <div class="container" width="250px">
